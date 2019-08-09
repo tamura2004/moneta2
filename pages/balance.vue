@@ -58,7 +58,7 @@
   }
 
   #statement-btn {
-    grid-row: 9;
+    grid-row: 8;
     grid-column: 2;
     font-size: 24px;
     color: orange;

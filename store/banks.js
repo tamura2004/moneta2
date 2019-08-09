@@ -1,14 +1,6 @@
-import { firebaseListener, firebaseModify, firebaseAdd } from '../plugins/firebase';
+import { Firestore } from '~/plugins/firebase.js';
 
-export const state = () => ({
-  values: [],
-});
-
-export const mutations = {
-  modify: firebaseModify,
-  add: firebaseAdd,
-}
-
-export const actions = {
-  listen: firebaseListener('banks'),
-};
+const firestore = new Firestore('banks');
+export const state = firestore.state;
+export const actions = firestore.actions;
+export const mutations = firestore.mutations;

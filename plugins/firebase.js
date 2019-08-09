@@ -14,25 +14,41 @@ if (!firebase.apps.length) {
 
 export const db = firebase.firestore();
 
-export function firebaseAdd(state, { id, data}) {
-  state.values.push({ id, ...data });
-}
-
-export function firebaseModify(state, { id , data }) {
-  const index = state.values.findIndex((b) => b.id === id);
-  Vue.set(state.values, index, { ...data });
-}
-
-export function firebaseListener(name) {
-  return ({ commit }) => db.collection(name).onSnapshot((snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      const id = change.doc.id;
-      const data = change.doc.data();
-      if (change.type === 'added') {
-        commit('add', { id, data });
-      } else if (change.type === 'modified') {
-        commit('modify', { id, data });
-      }
+export class Firestore {
+  constructor(name) {
+    this.name = name;
+  }
+  get state() {
+    return () => ({
+      values: [],
     });
-  });
-};
+  }
+  get mutations() {
+    return {
+      add(state, { id, data}) {
+        state.values.push({ id, ...data });
+      },
+      modify(state, { id , data }) {
+        const index = state.values.findIndex((value) => value.id === id);
+        Vue.set(state.values, index, { ...data });
+      },
+    };
+  }
+  get actions() {
+    return {
+      listen: ({ commit }) => {
+        db.collection(this.name).onSnapshot((snapshot) => {
+          snapshot.docChanges().forEach((change) => {
+            const id = change.doc.id;
+            const data = change.doc.data();
+            if (change.type === 'added') {
+              commit('add', { id, data });
+            } else if (change.type === 'modified') {
+              commit('modify', { id, data });
+            }
+          });
+        });
+      },
+    };
+  }
+}
