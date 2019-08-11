@@ -7,21 +7,19 @@
         </nuxt-link>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
-        <p class="body-1 my-0">目黒銀行</p>
-        <p class="body-1 my-0">祐天寺支店</p>
+        <p class="body-1 my-0">{{ bankName }}</p>
+        <p class="body-1 my-0">{{ branchName }}</p>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn nuxt to="login" text>赤城 一郎様</v-btn>
+        <v-btn nuxt to="login" text>{{ name }}様</v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
       <v-container fluid>
         <v-layout align-start justify-center>
           <v-flex xs12 sm12 md8 xl8>
-            <transition name="router" mode="out-in">
-              <nuxt/>
-            </transition>
+            <nuxt/>
           </v-flex>
         </v-layout>
       </v-container>
@@ -30,11 +28,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  async fetch({ store }) {
-    console.log("in fetch");
-    store.dispatch("banks/listen");
-  },
+  computed: {
+    ...mapGetters('login', ['name', 'bankName', 'branchName']),
+  }
 };
 </script>
 

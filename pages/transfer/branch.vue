@@ -27,6 +27,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  middleware: 'hasBank',
   computed: {
     ...mapGetters('branches', ['branches']),
     ...mapGetters('transfer', ['bankId', 'branchId']),

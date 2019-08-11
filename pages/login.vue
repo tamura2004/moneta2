@@ -5,13 +5,34 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select></v-select>
+        <v-select
+          item-text="name"
+          item-value="id"
+          :items="accounts('ALL')"
+          :value="id"
+          @input="$store.dispatch('login/id', $event)"
+        ></v-select>
       </v-form>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn nuxt to="/signin" color="success">口座開設</v-btn>
-      <v-btn nuxt to="/" color="primary">ログイン</v-btn>
+      <v-btn
+        nuxt
+        to="/"
+        color="primary"
+      >ログイン</v-btn>
     </v-card-actions>
   </v-card>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters('accounts', ['accounts']),
+    ...mapGetters('login', ['id']),
+  },
+}
+</script>

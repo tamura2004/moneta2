@@ -24,16 +24,9 @@ export class Firestore {
       unsubscribe: null,
     });
   }
-  get getters() {
-    return {
-      [this.name](state) {
-        return state.values;
-      }
-    };
-  }
   get mutations() {
     return {
-      add(state, { id, data}) {
+      add(state, { id, data }) {
         state.values.push({ id, ...data });
       },
       modify(state, { id , data }) {
@@ -47,6 +40,12 @@ export class Firestore {
   }
   get actions() {
     return {
+      add: ({}, { data }) => {
+        db.collection(this.name).add({ ...data });
+      },
+      modify:({}, { id, data }) => {
+        db.collection(this.name).doc(id).update({ ...data });
+      },
       listen: ({ state, commit }) => {
         if (state.unsubscribe !== null) {
           return;

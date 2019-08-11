@@ -13,16 +13,8 @@ export const getters = {
 }
 
 export const mutations = {
-  bankId(state, bankId) {
-    state.bankId = bankId;
-  },
-  branchId(state, branchId) {
-    state.branchId = branchId;
-  },
-  accountId(state, accountId) {
-    state.accountId = accountId;
-  },
-  amount(state, amount) {
-    state.amount = amount;
-  }
+  bankId: (state, bankId) => state.bankId = bankId,
+  branchId: (state, branchId) => state.branchId = branchId,
+  accountId: (state, accountId) => state.accountId = accountId,
+  amount: (state, amount) => state.amount = amount,
 }

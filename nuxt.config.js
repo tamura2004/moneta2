@@ -3,6 +3,6 @@ module.exports = {
     '@nuxtjs/vuetify',
   ],
   router: {
-    middleware: ["index"],
+    middleware: ["firebase"],
   },
 };

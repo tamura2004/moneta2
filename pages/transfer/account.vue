@@ -5,9 +5,33 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select></v-select>
-        <v-btn nuxt to="amount" color="primary" dark>次へ</v-btn>
+        <v-select
+          item-text="name"
+          item-value="id"
+          :items="accounts(branchId)"
+          @input="$store.commit('transfer/accountId', $event)"
+        ></v-select>
+        <v-btn
+          nuxt
+          dark
+          to="amount"
+          color="primary"
+          :disabled="!accountId"
+        >次へ</v-btn>
       </v-form>
+      <!-- <code>{{ accounts(branchId) | json }}</code> -->
     </v-card-text>
   </v-card>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  middleware: ['hasBank', 'hasBranch'],
+  computed: {
+    ...mapGetters('accounts', ['accounts']),
+    ...mapGetters('transfer', ['bankId', 'branchId', 'accountId']),
+  }  
+}
+</script>

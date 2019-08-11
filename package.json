@@ -7,5 +7,8 @@
 		"@nuxtjs/vuetify": "^1.2.1",
 		"firebase": "^6.3.5",
 		"nuxt": "^2.8.1"
+	},
+	"dependencies": {
+		"blueimp-md5": "^2.11.1"
 	}
 }

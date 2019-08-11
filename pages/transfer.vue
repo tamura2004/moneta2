@@ -49,10 +49,10 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  middleware: 'login',
   computed: {
     ...mapGetters('banks', ['bank']),
     ...mapGetters('transfer', ['bankId']),
   }  
 }
 </script>
-
