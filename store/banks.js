@@ -7,4 +7,5 @@ export const mutations = firestore.mutations;
 export const getters = {
     banks: state => state.values,
     bank: state => id => state.values.find(bank => bank.id === id),
+    name: (state, getters) => id => getters.bank(id) ? getters.bank(id).name : '-',
 };
