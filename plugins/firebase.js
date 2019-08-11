@@ -21,6 +21,7 @@ export class Firestore {
   get state() {
     return () => ({
       values: [],
+      unsubscribe: null,
     });
   }
   get mutations() {
@@ -32,12 +33,15 @@ export class Firestore {
         const index = state.values.findIndex((value) => value.id === id);
         Vue.set(state.values, index, { ...data });
       },
+      setUnsubscribe(state, unsubscribe) {
+        state.unsubscribe = unsubscribe;
+      }
     };
   }
   get actions() {
     return {
       listen: ({ commit }) => {
-        db.collection(this.name).onSnapshot((snapshot) => {
+        const unsubscribe = db.collection(this.name).onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
             const id = change.doc.id;
             const data = change.doc.data();
@@ -48,6 +52,7 @@ export class Firestore {
             }
           });
         });
+        commit('setUnsubscribe', unsubscribe);
       },
     };
   }
