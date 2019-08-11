@@ -24,6 +24,13 @@ export class Firestore {
       unsubscribe: null,
     });
   }
+  get getters() {
+    return {
+      [this.name](state) {
+        return state.values;
+      }
+    };
+  }
   get mutations() {
     return {
       add(state, { id, data}) {
@@ -40,7 +47,10 @@ export class Firestore {
   }
   get actions() {
     return {
-      listen: ({ commit }) => {
+      listen: ({ state, commit }) => {
+        if (state.unsubscribe !== null) {
+          return;
+        }
         const unsubscribe = db.collection(this.name).onSnapshot((snapshot) => {
           snapshot.docChanges().forEach((change) => {
             const id = change.doc.id;

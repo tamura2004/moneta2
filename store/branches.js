@@ -1,10 +1,11 @@
 import { Firestore } from '~/plugins/firebase.js';
 
-const firestore = new Firestore('banks');
+const firestore = new Firestore('branches');
+
 export const state = firestore.state;
 export const actions = firestore.actions;
 export const mutations = firestore.mutations;
 export const getters = {
-    ...firestore.getters,
-    bank: state => id => state.values.find(bank => bank.id === id),
+  branches: state => bankId =>
+    state.values.filter(branch => branch.bankId === bankId),
 };

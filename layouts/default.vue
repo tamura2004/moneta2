@@ -12,7 +12,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn nuxt to="login" text>赤城　一郎様</v-btn>
+        <v-btn nuxt to="login" text>赤城 一郎様</v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -28,3 +28,13 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+export default {
+  async fetch({ store }) {
+    console.log("in fetch");
+    store.dispatch("banks/listen");
+  },
+};
+</script>
+

@@ -5,21 +5,33 @@
     </v-toolbar>
     <v-card-text>
       <v-form>
-        <v-select v-model="bankId" :items="banks" item-text="name" item-value="id"></v-select>
-        <v-btn nuxt to="branch" color="primary" dark>次へ</v-btn>
+        <v-select
+          item-text="name"
+          item-value="id"
+          :items="banks"
+          :value="bankId"
+          @input="$store.commit('transfer/bankId', $event)"
+        >
+        </v-select>
+        <v-btn
+          nuxt
+          dark
+          to="branch"
+          color="primary"
+          :disabled="!bankId"
+        >次へ</v-btn>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { FirebaseListener } from '~/plugins/firebase.js';
+import { mapGetters } from 'vuex';
 
 export default {
-  data() {
-    return ({
-      bankId: null,
-    });
+  computed: {
+    ...mapGetters('banks', ['banks']),
+    ...mapGetters('transfer', ['bankId']),
   },
 };
 </script>

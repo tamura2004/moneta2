@@ -10,16 +10,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  created() {
-    this.$store.dispatch('banks/listen');
-  }
-}
-</script>
-
-
-
 <style scoped>
 .v-btn.menu {
   height: 60px;
