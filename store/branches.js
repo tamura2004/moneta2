@@ -9,6 +9,6 @@ export const getters = {
     state.values.filter(branch => bankId === 'ALL' || branch.bankId === bankId),
   branch: state => id =>
     state.values.find(branch => branch.id === id),
-  name: (state, getters) => id =>
+  name: (_, getters) => id =>
     getters.branch(id) ? getters.branch(id).name : '-',
 };

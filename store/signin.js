@@ -12,10 +12,8 @@ export const getters = {
   branchId: state => state.branchId,
   name: state => state.name,
   password: state => state.password, 
-  data: (state, getters, rootState, rootGetters) => ({
+  data: state => ({
     ...state,
-    bank: rootGetters['banks/name'](state.bankId),
-    branch: rootGetters['branches/name'](state.branchId),
     kind: '普通',
     num: Math.floor(Math.random() * 1000000),
     password: md5(state.password),

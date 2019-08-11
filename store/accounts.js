@@ -9,4 +9,6 @@ export const getters = {
     state.values.filter(account => branchId === 'ALL' || account.branchId === branchId),
   account: state => id =>
     state.values.find(account => account.id === id),
+  name: (_, getters) => id =>
+    getters.account(id) ? getters.account(id).name : '-',
 };
