@@ -2,13 +2,26 @@
   <div id="page">
     <div id="inner-page">
       <h2 id="label">残高</h2>
-      <h2 id="account">普通預金 0123456</h2>
+      <h2 id="account">{{ account.kind }}預金 {{ account.num }}</h2>
       <v-btn nuxt to="/statements" id="statement-btn" class="mx-3" rounded large color="white">明細</v-btn>
     </div>
-    <v-btn id="btn" class="ma-0 orange" fab dark large>￥1,000,000-</v-btn>
+    <v-btn id="btn" class="ma-0 orange" fab dark large>{{ account.total | yen }}</v-btn>
   </div>
 </template>
 
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  middleware: 'login',
+  filters: {
+    yen: v => v && '￥' + v.toLocaleString() + '-',
+  },
+  computed: {
+    ...mapGetters('login', ['account']),
+  },
+}
+</script>
 
 <style scoped>
   #page {

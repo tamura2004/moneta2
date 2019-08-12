@@ -47,13 +47,15 @@ import md5 from 'blueimp-md5';
 
 export default {
   computed: {
-    ...mapGetters('signin', ['bankId', 'branchId', 'name', 'password', 'data']),
+    ...mapGetters('signin', ['bankId', 'branchId', 'name', 'password', 'account', 'inc', 'statement']),
     ...mapGetters('banks', ['banks']),
     ...mapGetters('branches', ['branches']),
   },
   methods: {
-    signin() {
-      this.$store.dispatch('accounts/add', { data: this.data });
+    async signin() {
+      const { id } = await this.$store.dispatch('accounts/add', this.account);
+      this.$store.dispatch('branches/modify', this.inc);
+      this.$store.dispatch('statements/add', this.statement(id));
       this.$router.push('/login');
     }
   }
