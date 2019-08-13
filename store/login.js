@@ -28,4 +28,11 @@ export const mutations = {
 
 export const actions = {
   id: ({ commit }, id) => commit('id', id),
+  transfer: ({ getters, dispatch }) => {
+    const id = getters.id;
+    dispatch('accounts/payFee', { id });
+    dispatch('statements/payFee', { id });
+    dispatch('accounts/payTransfer', { id });
+    dispatch('statements/payTransfer', { id });
+  }
 }

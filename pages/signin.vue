@@ -54,8 +54,7 @@ export default {
   },
   methods: {
     async signin() {
-      const { id } = await this.$store.dispatch('accounts/add', { data: this.data });
-      console.log(id);
+      await this.$store.dispatch('signin/signin');
       this.$router.push('/');
     }
   }
