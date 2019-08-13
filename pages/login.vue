@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-12">
+  <v-card class="elevation-12 mt-8">
     <v-toolbar dark color="primary">
       <v-toolbar-title>ログイン</v-toolbar-title>
     </v-toolbar>
@@ -30,6 +30,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  layout: 'login',
   computed: {
     ...mapGetters('accounts', ['accounts']),
     ...mapGetters('login', ['id']),

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-12">
+  <v-card class="elevation-12 mt-8">
     <v-toolbar dark color="primary">
       <v-toolbar-title>口座開設</v-toolbar-title>
     </v-toolbar>
@@ -46,6 +46,7 @@ import { mapGetters } from 'vuex';
 import md5 from 'blueimp-md5';
 
 export default {
+  layout: 'login',
   computed: {
     ...mapGetters('signin', ['bankId', 'branchId', 'name', 'password', 'account', 'inc', 'statement']),
     ...mapGetters('banks', ['banks']),
@@ -53,10 +54,8 @@ export default {
   },
   methods: {
     async signin() {
-      const { id } = await this.$store.dispatch('accounts/add', this.account);
-      this.$store.dispatch('branches/modify', this.inc);
-      this.$store.dispatch('statements/add', this.statement(id));
-      this.$router.push('/login');
+      await this.$store.dispatch('signin/signin');
+      this.$router.push('/');
     }
   }
 }

@@ -1,7 +1,8 @@
 {
 	"name": "moneta2",
 	"scripts": {
-		"dev": "nuxt --spa"
+		"dev": "nuxt --spa",
+		"build": "nuxt build"
 	},
 	"devDependencies": {
 		"@nuxtjs/vuetify": "^1.2.1",
