@@ -13,13 +13,13 @@ export const getters = {
   name: state => state.name,
   password: state => state.password,
   initialAmount: () => 100000,
-  data: (state, getters) => ({ data: {
+  account: (state, getters) => ({
     ...state,
     kind: '普通',
     num: Math.floor(Math.random() * 1000000),
     password: md5(state.password),
     total: getters.initialAmount,
-  }}),
+  }),
   statement: (state, getters) => ({
     amount: getters.initialAmount,
     total: getters.initialAmount,
@@ -37,7 +37,7 @@ export const mutations = {
 
 export const actions = {
   async signin({ getters, dispatch }) {
-    const { id } = await dispatch('accounts/add', getters.data, { root: true });
-    dispatch('statements/add', { data: { ...getters.statement, accountId: id }}, { root: true });
+    const { id } = await dispatch('accounts/add', getters.account, { root: true });
+    dispatch('statements/add', { ...getters.statement, accountId: id }, { root: true });
   }
 };

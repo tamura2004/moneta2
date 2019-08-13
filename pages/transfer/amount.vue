@@ -43,57 +43,8 @@ export default {
     transfer() {
       this.$store.dispatch('login/transfer');
       this.$store.dispatch('transfer/transfer');
+      this.$router.push('/');
     },
-    transferFrom() {
-      const id = this.loginAccount.id;
-      const total = this.loginAccount.total;
-
-      this.$store.dispatch('accounts/modify', {
-        id: this.loginAccount.id,
-        data: {
-          total: total - this.amount - this.fee,
-        },
-      });
-
-      this.$store.dispatch('statements/add', {
-        data: {
-          accountId: id,
-          amount: this.amount,
-          total: total - this.amount,
-          kind: '出金',
-          memo: `振込：${this.account.name}`,
-        },
-      });
-      this.$store.dispatch('statements/add', {
-        data: {
-          accountId: id,
-          amount: this.fee,
-          total: total - this.amount - this.fee,
-          kind: '出金',
-          memo: '振込手数料',
-        },
-      });
-    },
-    transferTo() {
-      const id = this.accountId;
-      const total = Number(this.account.total);
-
-      this.$store.dispatch('accounts/modify', {
-        id,
-        data: {
-          total: total + this.amount,
-        },
-      });
-      this.$store.dispatch('statements/add', {
-        data: {
-          accountId: id,
-          amount: this.amount,
-          total: total + this.amount,
-          kind: '入金',
-          memo: `振込：${this.loginAccount.name}`,
-        },
-      });
-    }
   },
 }
 </script>

@@ -51,34 +51,34 @@ export const actions = {
   // 手数料支払いの取引明細を追加
   addStatementPayFee({ getters, rootGetters, dispatch }) {
     const account = rootGetters['login/account'];
-    dispatch('statements/add', { data: {
+    dispatch('statements/add', {
       accountId: rootGetters['login/id'],
       amount: getters.fee,
       total: account.total, // 予め口座金額を差し引いておく
       kind: '出金',
       memo: '振込手数料',
-    }}, { root: true });
+    }, { root: true });
   },
   // 振込金額支払いの取引明細を追加
   addStatementPayTransfer({ getters, rootGetters, dispatch }) {
     const account = rootGetters['login/account'];
-    dispatch('statements/add', { data: {
+    dispatch('statements/add', {
       accountId: rootGetters['login/id'],
       amount: getters.amount,
       total: account.total, // 予め口座金額を差し引いておく
       kind: '出金',
       memo: `振込：${getters.account.name}`,
-    }}, { root: true });
+    }, { root: true });
   },
   // 振込金額入金の取引明細を追加
   addStatementPayTransfer({ getters, rootGetters, dispatch }) {
     const account = getters.account;
-    dispatch('statements/add', { data: {
+    dispatch('statements/add', {
       accountId: getters.accountId,
       amount: getters.amount,
       total: account.total, // 予め口座金額を加算しておく
       kind: '入金',
       memo: `振込：${rootGetters['login/account'].name}`,
-    }}, { root: true });
+    }, { root: true });
   },
 }

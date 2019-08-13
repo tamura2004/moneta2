@@ -41,7 +41,7 @@ export class Firestore {
   }
   get actions() {
     return {
-      add: ({}, { data }) => db.collection(this.name).add({
+      add: ({}, data) => db.collection(this.name).add({
         ...data,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }),
