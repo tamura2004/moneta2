@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import Vue from 'vue';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
