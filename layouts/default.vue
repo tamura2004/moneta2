@@ -7,12 +7,12 @@
         </nuxt-link>
       </v-app-bar-nav-icon>
       <v-toolbar-title>
-        <p class="body-1 my-0">{{ account ? account.bank : '-' }}</p>
-        <p class="body-1 my-0">{{ account ? account.branch : '-' }}</p>
+        <p class="body-1 my-0">{{ bank | name }}</p>
+        <p class="body-1 my-0">{{ branch | name }}</p>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn nuxt to="login" text>{{ account ? account.name : '-' }}様</v-btn>
+        <v-btn class="title" nuxt to="login" text>{{ account | name }}様</v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -31,9 +31,11 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  filters: {
+    name: v => (v && v.name) ? v.name : '----',
+  },
   computed: {
-    ...mapGetters('login', ['account']),
+    ...mapGetters('login', ['account', 'branch', 'bank']),
   }
 };
 </script>
-

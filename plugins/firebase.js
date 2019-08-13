@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -31,7 +32,7 @@ export class Firestore {
       },
       modify(state, { id , data }) {
         const index = state.values.findIndex((value) => value.id === id);
-        Vue.set(state.values, index, { ...data });
+        Vue.set(state.values, index, { id, ...data });
       },
       setUnsubscribe(state, unsubscribe) {
         state.unsubscribe = unsubscribe;
@@ -40,9 +41,10 @@ export class Firestore {
   }
   get actions() {
     return {
-      add: ({}, { data }) => {
-        db.collection(this.name).add({ ...data });
-      },
+      add: ({}, { data }) => db.collection(this.name).add({
+        ...data,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }),
       modify:({}, { id, data }) => {
         db.collection(this.name).doc(id).update({ ...data });
       },

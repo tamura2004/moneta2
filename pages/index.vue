@@ -10,6 +10,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  middleware: 'login',
+}
+</script>
+
 <style scoped>
 .v-btn.menu {
   height: 60px;
