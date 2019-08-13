@@ -1,3 +1,5 @@
+// 振込処理用データストア
+
 export const state = () => ({
   bankId: null,
   branchId: null,
